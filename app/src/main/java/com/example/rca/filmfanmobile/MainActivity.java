@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private MoviesAdapter adapter;
     private String sortBy = MoviesRepository.POPULAR;
 
+
     private MoviesRepository moviesRepository;
 
     private List<Genre> movieGenres;
@@ -69,6 +70,12 @@ public class MainActivity extends AppCompatActivity {
                         sortBy = MoviesRepository.POPULAR;
                         getMovies(currentPage);
                         return true;
+
+                    case R.id.popular_sorted:
+                        sortBy = MoviesRepository.POPULAR_SORTED;
+                        getMovies(currentPage);
+                        return true;
+
                     case R.id.top_rated:
                         sortBy = MoviesRepository.TOP_RATED;
                         getMovies(currentPage);
@@ -104,7 +111,8 @@ public class MainActivity extends AppCompatActivity {
 
                 if (firstVisibleItem + visibleItemCount >= totalItemCount / 2) {
                     if (!isFetchingMovies) {
-                        getMovies(currentPage + 1);
+                        //getMovies(currentPage + 1);
+                        getMovies(currentPage );
                     }
                 }
             }
@@ -165,6 +173,9 @@ public class MainActivity extends AppCompatActivity {
         switch (sortBy) {
             case MoviesRepository.POPULAR:
                 setTitle(getString(R.string.popular));
+                break;
+            case MoviesRepository.POPULAR_SORTED:
+                setTitle(getString(R.string.popular_sorted));
                 break;
             case MoviesRepository.TOP_RATED:
                 setTitle(getString(R.string.top_rated));

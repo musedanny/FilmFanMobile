@@ -13,6 +13,8 @@ public class MoviesRepository {
     private static final String BASE_URL = "https://api.themoviedb.org/3/";
     private static final String LANGUAGE = "en-US";
     public static final String POPULAR = "popular";
+    public static final String POPULAR_SORTED = "popularity.asc";
+
     public static final String TOP_RATED = "top_rated";
     public static final String UPCOMING = "upcoming";
 
@@ -20,6 +22,7 @@ public class MoviesRepository {
     private static MoviesRepository repository;
 
     private TMDbApi api;
+   private String category;
 
     private MoviesRepository(TMDbApi api) {
         this.api = api;
@@ -65,10 +68,19 @@ public class MoviesRepository {
                 api.getTopRatedMovies("ab721bd0fb7c30e79e7e66f1cea243e1", LANGUAGE, page)
                         .enqueue(call);
                 break;
+
             case UPCOMING:
                 api.getUpcomingMovies("ab721bd0fb7c30e79e7e66f1cea243e1", LANGUAGE, page)
                         .enqueue(call);
                 break;
+
+            case POPULAR_SORTED:
+                api.getPopularMoviesSorted("ab721bd0fb7c30e79e7e66f1cea243e1", LANGUAGE,page,category)
+                        .enqueue(call);
+                break;
+
+
+
             case POPULAR:
             default:
                 api.getPopularMovies("ab721bd0fb7c30e79e7e66f1cea243e1", LANGUAGE, page)
@@ -101,7 +113,7 @@ public class MoviesRepository {
                 });
     }
     public void getMovie(int movieId, final OnGetMovieCallback callback) {
-        api.getMovie(movieId, BuildConfig.TMDB_API_KEY, LANGUAGE)
+        api.getMovie(movieId, "ab721bd0fb7c30e79e7e66f1cea243e1", LANGUAGE)
                 .enqueue(new Callback<Movie>() {
                     @Override
                     public void onResponse(Call<Movie> call, Response<Movie> response) {
@@ -124,7 +136,7 @@ public class MoviesRepository {
                 });
     }
     public void getTrailers(int movieId, final OnGetTrailersCallback callback) {
-        api.getTrailers(movieId,BuildConfig.TMDB_API_KEY, LANGUAGE)
+        api.getTrailers(movieId,"ab721bd0fb7c30e79e7e66f1cea243e1", LANGUAGE)
                 .enqueue(new Callback<TrailerResponse>() {
                     @Override
                     public void onResponse(Call<TrailerResponse> call, Response<TrailerResponse> response) {

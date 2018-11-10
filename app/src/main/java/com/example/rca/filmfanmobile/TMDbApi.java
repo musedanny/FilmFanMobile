@@ -13,6 +13,13 @@ public interface TMDbApi {
             @Query("language") String language,
             @Query("page") int page
     );
+    @GET("movie/popularity.asc")
+    Call<MoviesResponse> getPopularMoviesSorted(
+            @Query("api_key") String apiKey,
+            @Query("language") String language,
+            @Query("page") int page,
+            @Query("sort_by") String category
+    );
 
     @GET("movie/top_rated")
     Call<MoviesResponse> getTopRatedMovies(
