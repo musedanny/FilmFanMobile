@@ -88,7 +88,7 @@ public class MovieActivity extends AppCompatActivity {
                 movieRating.setVisibility(View.VISIBLE);
                 movieRating.setRating(movie.getRating() / 2);
                 getGenres(movie);
-               // getTrailers(movie);
+                getTrailers(movie);
                 getReviews(movie);
                 movieReleaseDate.setText(movie.getReleaseDate());
 
